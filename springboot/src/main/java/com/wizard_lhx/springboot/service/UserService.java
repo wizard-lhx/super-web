@@ -5,6 +5,10 @@ import com.wizard_lhx.springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 功能：
  * 作者：wizard-lhx
@@ -17,5 +21,48 @@ public class UserService {
 
     public void insertUser(User user) {
         userMapper.insert(user);
+    }
+
+    public void updateUser(User user) {
+        userMapper.update(user);
+    }
+
+    public void deleteUser(int id) {
+        userMapper.delete(id);
+    }
+    public void deleteUser(List<Integer> ids) {
+        for (Integer id : ids) {
+            userMapper.delete(id);
+        }
+    }
+
+    public List<User> selectAll() {
+        return userMapper.selectAll();
+    }
+
+    public List<User> selectById(int id) {
+        return userMapper.selectById(id);
+    }
+
+    public List<User> selectByName(String name) {
+        return userMapper.selectByName(name);
+    }
+
+    public List<User> selectByMore(String name, int id) {
+        return userMapper.selectByMore(name,id);
+    }
+
+    public List<User> selectBlur(String user_name) {
+        return userMapper.selectBlur(user_name);
+    }
+
+    public Map<String, Object> selectPage(int pageNum, int pageSize) {
+        int skipNum = (pageNum - 1) * pageSize;
+        Map<String, Object> result = new HashMap<>();
+        List<User> user = userMapper.selectPage(skipNum,pageSize);
+        int total = userMapper.selectCount();
+        result.put("total", total);
+        result.put("user", user);
+        return result;
     }
 }
