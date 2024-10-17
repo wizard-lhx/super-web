@@ -16,6 +16,7 @@ import java.util.Map;
  * 作者：wizard-lhx
  * 日期：2024/10/15 20:16
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {

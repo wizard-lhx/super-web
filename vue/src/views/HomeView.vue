@@ -30,7 +30,19 @@
         </el-header>
 <!--        主体-->
         <el-main>
-
+          <el-card>
+            <div slot="header" style="width: 100%;display: flex;justify-content: center">
+              User Table
+            </div>
+            <div  style="display: flex;justify-content: center">
+              <el-table :data="user" style="width: 1000px;">
+                  <el-table-column label="ID" prop="id" ></el-table-column>
+                  <el-table-column label="User Name" prop="user_name"></el-table-column>
+                  <el-table-column label="Name" prop="name"></el-table-column>
+                  <el-table-column label="Phone" prop="phone"></el-table-column>
+              </el-table>
+            </div>
+          </el-card>
         </el-main>
       </el-container>
     </el-container>
@@ -39,8 +51,24 @@
 
 <script>
 
+import axios from "axios";
+import request from "@/utils/request.js";
+
 export default {
   name: 'HomeView',
+  data(){
+    return {
+      user: []
+    }
+  },
+  mounted() {
+    // axios.get("http://localhost:9090/user/selectAll").then(res => {
+    //   this.user = res.data.data
+    // })
+    request.get("/user/selectAll").then(res => {
+      this.user = res.data
+    })
+  },
   methods:{
     login(){
       console.log('1')
