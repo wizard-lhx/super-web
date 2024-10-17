@@ -7,11 +7,11 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into `user` (user_name,password,name,phone,avatar)" +
-            "values (#{user_name},#{password},#{name},#{phone},#{avatar})")
+    @Insert("insert into `user` (username,password,name,phone,avatar)" +
+            "values (#{username},#{password},#{name},#{phone},#{avatar})")
     void insert(User user);
 
-    @Update("update `user` set user_name = #{user_name}, password = #{password}, " +
+    @Update("update `user` set username = #{username}, password = #{password}, " +
             "name = #{name}, phone = #{phone}, avatar = #{avatar} where id = #{id}")
     void update(User user);
 
@@ -30,8 +30,8 @@ public interface UserMapper {
     @Select("select * from `user` where name = #{name} and id = #{id}")
     List<User> selectByMore(@Param("name") String name, @Param("id")int id);
 
-    @Select("select * from `user` where user_name like concat('%',#{user_name},'%')")
-    List<User> selectBlur(@Param("user_name") String user_name);
+    @Select("select * from `user` where username like concat('%',#{username},'%')")
+    List<User> selectBlur(@Param("username") String username);
 
     //分页查询
     @Select("select * from `user` limit #{skipNum},#{pageSize}")
@@ -40,4 +40,7 @@ public interface UserMapper {
     //查询总数
     @Select("select count(id) from `user`")
     int selectCount();
+
+    @Select("select * from `user` where username = #{username}")
+    User selectByUsername(String username);
 }

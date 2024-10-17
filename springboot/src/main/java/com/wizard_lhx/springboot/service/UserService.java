@@ -1,6 +1,8 @@
 package com.wizard_lhx.springboot.service;
 
+import com.wizard_lhx.springboot.common.Result;
 import com.wizard_lhx.springboot.entity.User;
+import com.wizard_lhx.springboot.exception.ServiceException;
 import com.wizard_lhx.springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,5 +66,16 @@ public class UserService {
         result.put("total", total);
         result.put("user", user);
         return result;
+    }
+
+    public User login(User user) {
+        User dbUser = userMapper.selectByUsername(user.getUsername());
+        if (dbUser == null) {
+            throw new ServiceException("账号或密码不存在");
+        }
+        if(!user.getPassword().equals(dbUser.getPassword())) {
+            throw new ServiceException("账号或密码不存在");
+        }
+        return dbUser;
     }
 }

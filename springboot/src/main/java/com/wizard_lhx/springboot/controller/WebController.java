@@ -1,6 +1,10 @@
 package com.wizard_lhx.springboot.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.wizard_lhx.springboot.common.Result;
+import com.wizard_lhx.springboot.entity.User;
+import com.wizard_lhx.springboot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -10,22 +14,21 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class WebController {
-    @GetMapping("/get")
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/")
     public Result get(@RequestBody Obj obj) {
         return Result.success(obj);
     }
 
-    @PostMapping("/post")
-    public Result post(@RequestBody Obj obj) {
-        return Result.success(obj);
-    }
-
-    @PutMapping("/put")
-    public Result put(@RequestBody Obj obj) {
-        return Result.success(obj);
-    }
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody Obj obj) {
-        return Result.success(obj);
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword())){
+            return Result.error("输入数据不合法");
+        }
+        User dbUser =  userService.login(user);
+        return Result.success(dbUser);
     }
 }
