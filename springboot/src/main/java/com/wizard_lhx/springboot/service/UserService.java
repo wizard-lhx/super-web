@@ -4,6 +4,7 @@ import com.wizard_lhx.springboot.common.Result;
 import com.wizard_lhx.springboot.entity.User;
 import com.wizard_lhx.springboot.exception.ServiceException;
 import com.wizard_lhx.springboot.mapper.UserMapper;
+import com.wizard_lhx.springboot.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class UserService {
         return userMapper.selectAll();
     }
 
-    public List<User> selectById(int id) {
+    public User selectById(int id) {
         return userMapper.selectById(id);
     }
 
@@ -76,6 +77,9 @@ public class UserService {
         if(!user.getPassword().equals(dbUser.getPassword())) {
             throw new ServiceException("账号或密码不存在");
         }
+        String token = TokenUtils.createToken(dbUser.getId().toString(), dbUser.getPassword());
+        dbUser.setToken(token);
+
         return dbUser;
     }
 

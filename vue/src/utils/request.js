@@ -8,8 +8,8 @@ const request = axios.create({
 //request 拦截器
 request.interceptors.request.use(config =>{
     config.headers['Content-Type'] = "application/json;character=utf-8"
-    // let user = localStroge.getItem("user") ? JSON.parse(localStroge.getItem("user")):null
-    //config.headers['token'] = "user"?.token;
+    let user = JSON.parse(localStorage.getItem("user") || '{}')
+    config.headers['token'] = user.token; //将登录时存储的 token 拿出来作为请求头
     return config
 },error => {
     console.error('request error:' + error)

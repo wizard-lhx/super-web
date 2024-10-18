@@ -53,6 +53,7 @@
 
 import axios from "axios";
 import request from "@/utils/request.js";
+import router from "@/router";
 
 export default {
   name: 'HomeView',
@@ -66,6 +67,9 @@ export default {
     //   this.user = res.data.data
     // })
     request.get("/user/selectAll").then(res => {
+      if(res.code === '401'){
+        router.push("/login")
+      }
       this.user = res.data
     })
   },

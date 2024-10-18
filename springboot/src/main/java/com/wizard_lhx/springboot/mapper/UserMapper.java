@@ -22,7 +22,7 @@ public interface UserMapper {
     List<User> selectAll();
 
     @Select("select * from `user` where id = #{id}")
-    List<User> selectById(int id);
+    User selectById(int id);
 
     @Select("select * from `user` where name = #{name}")
     List<User> selectByName(String name);

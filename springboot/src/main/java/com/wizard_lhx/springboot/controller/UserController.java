@@ -70,7 +70,7 @@ public class UserController {
 
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable int id) {
-        List<User> user = userService.selectById(id);
+        User user = userService.selectById(id);
         return Result.success(user);
     }
 

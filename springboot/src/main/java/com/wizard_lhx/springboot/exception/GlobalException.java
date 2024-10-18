@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalException {
     @ExceptionHandler(ServiceException.class)
     @ResponseBody
-    public Result serviceException(Exception e) {
-        return Result.error("500", e.getMessage());
+    public Result serviceException(ServiceException e) {
+        return Result.error(e.getCode(), e.getMessage());
     }
 }

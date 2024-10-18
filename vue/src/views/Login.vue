@@ -75,7 +75,7 @@ export default {
             if(res.code === '200'){
               this.$router.push('/')
               this.$message.success("Log in success")
-              localStorage.getItem('user',JSON.stringify(res.user))//存储用户数据
+              localStorage.setItem('user',JSON.stringify(res.data))//存储用户数据
             }else {
               this.$message.error(res.msg)
             }

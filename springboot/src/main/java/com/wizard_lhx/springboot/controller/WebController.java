@@ -1,6 +1,7 @@
 package com.wizard_lhx.springboot.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.wizard_lhx.springboot.common.AuthAccess;
 import com.wizard_lhx.springboot.common.Result;
 import com.wizard_lhx.springboot.entity.User;
 import com.wizard_lhx.springboot.service.UserService;
@@ -18,9 +19,10 @@ public class WebController {
     @Autowired
     UserService userService;
 
+    @AuthAccess
     @GetMapping("/")
-    public Result get(@RequestBody Obj obj) {
-        return Result.success(obj);
+    public Result get() {
+        return Result.success("hello");
     }
 
     @PostMapping("/login")
@@ -32,6 +34,7 @@ public class WebController {
         return Result.success(dbUser);
     }
 
+    @AuthAccess
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
         if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword())){
