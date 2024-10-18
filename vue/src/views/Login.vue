@@ -74,10 +74,10 @@ export default {
           this.$request.post('/login',this.user).then(res => {
             if(res.code === '200'){
               this.$router.push('/')
-              this.$message.success('Login success')
+              this.$message.success("Log in success")
               localStorage.getItem('user',JSON.stringify(res.user))//存储用户数据
             }else {
-              this.$message.error("Login failed")
+              this.$message.error(res.msg)
             }
           })
         }

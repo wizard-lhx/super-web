@@ -78,4 +78,13 @@ public class UserService {
         }
         return dbUser;
     }
+
+    public User register(User user) {
+        User dbUser = userMapper.selectByUsername(user.getUsername());
+        if (dbUser != null) {
+            throw new ServiceException("账号已存在");
+        }
+        userMapper.insert(user);
+        return user;
+    }
 }

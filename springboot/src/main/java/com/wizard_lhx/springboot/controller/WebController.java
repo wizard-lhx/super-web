@@ -31,4 +31,13 @@ public class WebController {
         User dbUser =  userService.login(user);
         return Result.success(dbUser);
     }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody User user) {
+        if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword())){
+            return Result.error("输入数据不合法");
+        }
+        User dbUser = userService.register(user);
+        return Result.success(dbUser);
+    }
 }

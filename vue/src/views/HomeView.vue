@@ -37,7 +37,7 @@
             <div  style="display: flex;justify-content: center">
               <el-table :data="user" style="width: 1000px;">
                   <el-table-column label="ID" prop="id" ></el-table-column>
-                  <el-table-column label="User Name" prop="user_name"></el-table-column>
+                  <el-table-column label="User Name" prop="username"></el-table-column>
                   <el-table-column label="Name" prop="name"></el-table-column>
                   <el-table-column label="Phone" prop="phone"></el-table-column>
               </el-table>
