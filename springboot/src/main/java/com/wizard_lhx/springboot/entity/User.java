@@ -20,4 +20,5 @@ public class User {
     private String phone;
     private String avatar;
     private String token;
+    private String role;
 }

@@ -15,6 +15,12 @@
           <el-form-item prop="confirmPassword" label="Password:" label-width="110px" size="default">
             <el-input v-model="user.confirmPassword" placeholder="Please enter your password again"></el-input>
           </el-form-item>
+          <el-form-item prop="role" size="default">
+            <el-radio-group v-model="user.role">
+              <el-radio label="student" ></el-radio>
+              <el-radio label="teacher" ></el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item>
             <el-button style="width: 100%" @click="register">Register</el-button>
           </el-form-item>
@@ -44,7 +50,8 @@ export default {
       user:{
         "username":"",
         "password":"",
-        "confirmPassword":""
+        "confirmPassword":"",
+        role:''
       },
       rules:{
         username:[
@@ -55,6 +62,9 @@ export default {
         ],
         confirmPassword:[
           { validator: validatePassword, trigger: 'blur' }
+        ],
+        role:[
+          { required: true, message: 'Please select your role!', trigger: 'blur' }
         ],
       },
     }

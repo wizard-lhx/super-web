@@ -37,7 +37,7 @@ public class WebController {
     @AuthAccess
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
-        if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword())){
+        if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword()) || StrUtil.isBlank(user.getRole())){
             return Result.error("输入数据不合法");
         }
         User dbUser = userService.register(user);
