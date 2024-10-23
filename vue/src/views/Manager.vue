@@ -34,11 +34,21 @@
       <el-container>
 <!--        头部区域-->
         <el-header style="height: 45px;display: flex;align-items:center;justify-content: flex-end">
-          <i class="el-icon-user" @click="login"></i>
+          <el-dropdown placement="bottom" style="display: flex;align-items: center">
+            <div style="margin-right: 10px">
+              <img v-if='localUser.avatar' :src="localUser.avatar" style="width: 30px;height: 30px;border-radius: 20px">
+            </div>
+            <i class="el-icon-user"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="$router.push('/person')">personal</el-dropdown-item>
+              <el-dropdown-item @click.native="logout">log out</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </el-header>
 <!--        主体-->
         <el-main>
-          <router-view />
+<!--        动态显示页面并接收子级变量-->
+          <router-view @update:localUser="updateUser"/>
         </el-main>
       </el-container>
     </el-container>
@@ -46,48 +56,20 @@
 </template>
 
 <script>
-
-import axios from "axios";
-import request from "@/utils/request.js";
-import router from "@/router";
-
 export default {
-  name: 'HomeView',
+  name: 'Manager',
   data(){
     return {
-      user: [],
       localUser: JSON.parse(localStorage.getItem('user')||'{}'),
-      url: ""
     }
   },
-  mounted() {
-    // axios.get("http://localhost:9090/user/selectAll").then(res => {
-    //   this.user = res.data.data
-    // })
-    request.get("/user/selectAll").then(res => {
-      if(res.code === '401'){
-        router.push("/login")
-      }
-      this.user = res.data
-    })
-  },
   methods:{
-    handleTableFileUpload(row,file,fileList){
-      row.avatar = file.response.data
-      console.log(row)
-      this.$request.put("/user/update", row).then(res =>{
-        if(res.code === '200'){
-          this.$message.success('上传成功')
-        }else{
-          this.$message.error(res.msg)
-        }
-      })
+    updateUser(user){
+      this.localUser=JSON.parse(JSON.stringify(user))
     },
-    handleFileUpload(response, file, fileList){
-      console.log(file)
-    },
-    login(){
-      console.log('1')
+    logout(){
+      localStorage.removeItem('user')
+      this.$router.push('/login')
     }
   }
 }

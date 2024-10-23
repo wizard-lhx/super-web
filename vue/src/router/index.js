@@ -18,6 +18,8 @@ const routes = [
       path:'user', name:'User', component: ()=>import('../views/manager/User.vue')
     },{
       path:'403', name:'Auth', component: ()=>import('../views/manager/Auth.vue')
+    },{
+      path:'person', name:'Person', component: ()=>import('../views/manager/Person.vue')
     },
     ]
   }, {
