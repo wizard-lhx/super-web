@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import test_element from "@/views/test_element.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
@@ -10,6 +9,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    //redirect: '/home',
     name: 'Manager',
     component: () => import('../views/Manager.vue'),
     children: [{

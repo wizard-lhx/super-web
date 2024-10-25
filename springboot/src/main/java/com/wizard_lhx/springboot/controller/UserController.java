@@ -1,5 +1,9 @@
 package com.wizard_lhx.springboot.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wizard_lhx.springboot.common.Result;
 import com.wizard_lhx.springboot.entity.User;
 import com.wizard_lhx.springboot.service.UserService;
@@ -29,7 +33,7 @@ public class UserController {
     public Result add(@RequestBody User user) {
         // 异常捕获
         try{
-            userService.insertUser(user);
+            userService.save(user);
         }catch (Exception e){
             if(e instanceof DuplicateKeyException){
                 return Result.error("查询错误");
@@ -44,58 +48,45 @@ public class UserController {
 
     @PutMapping("/update")
     public Result update(@RequestBody User user) {
-        userService.updateUser(user);
+        userService.updateById(user);
         return Result.success(user);
     }
 
     //传入路径参数
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable int id) {
-        userService.deleteUser(id);
+        userService.removeById(id);
         return Result.success();
     }
 
     //批量删除
     @DeleteMapping("/deleteBatch")
     public Result delete(@RequestBody List<Integer> ids) {
-        userService.deleteUser(ids);
+        userService.removeBatchByIds(ids);
         return Result.success();
     }
 
     @GetMapping("/selectAll")
     public Result selectAll() {
-        List<User> user = userService.selectAll();
+        List<User> user = userService.list(new QueryWrapper<User>().orderByDesc("id"));
         return Result.success(user);
     }
 
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable int id) {
-        User user = userService.selectById(id);
-        return Result.success(user);
-    }
-
-    @GetMapping("/selectByName/{name}")
-    public Result selectByName(@PathVariable String name) {
-        List<User> user = userService.selectByName(name);
-        return Result.success(user);
-    }
-
-    //传入url参数
-    @GetMapping("/selectByMore")
-    public Result selectByMore(@RequestParam String name, @RequestParam int id) {
-        List<User> user = userService.selectByMore(name, id);
-        return Result.success(user);
-    }
-
-    @GetMapping("/selectBlur")
-    public Result selectBlur(@RequestParam String user_name) {
-        List<User> user = userService.selectBlur(user_name);
+        User user = userService.getById(id);
         return Result.success(user);
     }
 
     @GetMapping("/selectPage")
-    public Result selectPage(@RequestParam int pageNum, @RequestParam int pageSize) {
-        Map<String, Object> result = userService.selectPage(pageNum, pageSize);
-        return Result.success(result);
+    public Result selectPage(@RequestParam int pageNum,
+                             @RequestParam int pageSize,
+                             @RequestParam String username,
+                             @RequestParam String name) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>().orderByDesc("id");
+        queryWrapper.like(StrUtil.isNotBlank(username),"username",username);
+        queryWrapper.like(StrUtil.isNotBlank(name),"name",name);
+        Page<User> page = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return Result.success(page);
     }
 }

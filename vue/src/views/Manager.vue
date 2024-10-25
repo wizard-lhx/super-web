@@ -19,12 +19,12 @@
               <i class="el-icon-user"></i>
               <span>管理员专区</span>
             </template>
-            <el-menu-item index="/user">
+            <el-menu-item index="user">
               <i class="el-icon-user"></i>
               <span>用户管理</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item index="/home">
+          <el-menu-item index="home">
               <i class="el-icon-user"></i>
               <span>首页</span>
           </el-menu-item>
