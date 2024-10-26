@@ -90,7 +90,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.wizard_lhx.springboot.SpringbootApplication</mainClass>
-                    <skip>true</skip>
+<!--                    <skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -101,7 +101,24 @@
                     </execution>
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>3.0.2</version>-->
+<!--                <configuration>-->
+<!--                    <delimiters>@</delimiters>-->
+<!--                    <useDefaultDelimiters>false</useDefaultDelimiters>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
+<!--        <resources>-->
+<!--            &lt;!&ndash; 用maven来过滤文件 &ndash;&gt;-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                &lt;!&ndash;开启过滤，只过滤yml文件&ndash;&gt;-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
     </build>
 
 </project>

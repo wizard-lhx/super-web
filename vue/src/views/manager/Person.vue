@@ -5,7 +5,7 @@
       <div style="display: flex;justify-content: center">
         <el-upload
             class="avatar-uploader"
-            action="http://localhost:9090/files/upload"
+            :action="$baseUrl + '/files/upload'"
             :headers="{token: user.token}"
             :on-success="handleAvatarSuccess">
           <img v-if="user.avatar" :src="user.avatar" class="avatar">

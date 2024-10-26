@@ -28,7 +28,7 @@ public class FileController {
     @Value("${server.port}")
     String port;
 
-    private final static String ROOT_PATH = System.getProperty("user.dir")+"\\files";
+    private final static String ROOT_PATH = System.getProperty("user.dir")+File.separator+"files";
 
     @PostMapping("/upload")
     public Result upload(MultipartFile file) throws IOException {

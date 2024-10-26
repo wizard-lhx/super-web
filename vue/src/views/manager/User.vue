@@ -9,7 +9,7 @@
     <el-button @click="createUser">新增</el-button>
     <el-button @click="delBatchUser">批量删除</el-button>
     <el-button @click="exportData">数据导出</el-button>
-    <el-upload action="http://localhost:9090/user/importData" :headers="{token:localUser.token}"
+    <el-upload :action= "$baseUrl+'/user/importData'" :headers="{token:localUser.token}"
                :on-success="handleImport" :show-file-list="false" style="display: inline;margin-left: 10px">
       <el-button>数据导入</el-button>
     </el-upload>
@@ -117,10 +117,10 @@ export default {
     exportData(){
       let ids = this.selection.map(val=>val.id)
       if(!ids){
-        window.open('http://localhost:9090/user/exportData/'+'?token='+this.localUser.token+
+        window.open(this.$baseUrl+'/user/exportData/'+'?token='+this.localUser.token+
             '&username='+this.username+'&name='+this.name)
       }else{
-        window.open('http://localhost:9090/user/exportData/'+'?token='+this.localUser.token+
+        window.open(this.$baseUrl+'/user/exportData/'+'?token='+this.localUser.token+
             '&username='+this.username+'&name='+this.name+'&idStr='+ids.join(','))
       }
     },

@@ -63,6 +63,11 @@ export default {
       localUser: JSON.parse(localStorage.getItem('user')||'{}'),
     }
   },
+  mounted() {
+    if(!this.localUser.id){
+      this.$router.push('/login')
+    }
+  },
   methods:{
     updateUser(user){
       this.localUser=JSON.parse(JSON.stringify(user))

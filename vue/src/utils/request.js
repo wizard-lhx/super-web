@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-    baseURL: "http://localhost:9090",
+    baseURL: process.env.VUE_APP_BASEURL, // 后台默认端口
     timeout: 30000
 })
 
